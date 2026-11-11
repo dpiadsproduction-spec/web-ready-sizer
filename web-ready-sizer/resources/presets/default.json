@@ -1,0 +1,31 @@
+{
+  "version": "1.0.0",
+  "ui": {
+    "language": "ar",
+    "direction": "rtl",
+    "theme": "dark",
+    "density": "comfortable",
+    "activeTab": "sizer"
+  },
+  "conversion": {
+    "baseline": 16,
+    "preferredMode": "rem"
+  },
+  "features": {
+    "snapToGrid": true,
+    "colorMatching": true,
+    "rtlAware": true,
+    "autoRefresh": true,
+    "pollInterval": 700
+  },
+  "sizer": {
+    "keepRatio": false,
+    "applyAll": false,
+    "anchorTopLeft": true
+  },
+  "artboards": {
+    "height": 900,
+    "layout": "horizontal",
+    "spacing": 80
+  }
+}

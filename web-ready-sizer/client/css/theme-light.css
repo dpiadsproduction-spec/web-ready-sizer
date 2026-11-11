@@ -1,0 +1,64 @@
+/* Light theme overrides for Web-Ready Sizer. */
+
+body.theme-light {
+    --c-bg: #f1f5f9;
+    --c-bg-panel: #ffffff;
+    --c-bg-card: #ffffff;
+    --c-bg-elevated: #ffffff;
+    --c-bg-input: #f8fafc;
+
+    --c-text: #0f172a;
+    --c-text-dim: #475569;
+    --c-text-mute: #94a3b8;
+
+    --c-accent: #0d9488;
+    --c-accent-2: #0f766e;
+    --c-accent-soft: rgba(13, 148, 136, 0.1);
+
+    --c-warn: #b45309;
+    --c-error: #e11d48;
+    --c-success: #15803d;
+    --c-info: #0369a1;
+
+    --c-code-bg: #f1f5f9;
+    --c-code-text: #0f766e;
+
+    --c-border: rgba(15, 23, 42, 0.1);
+    --c-border-strong: rgba(15, 23, 42, 0.2);
+}
+
+body.theme-light .input-suffix {
+    background: rgba(241, 245, 249, 0.9);
+}
+
+body.theme-light .btn:hover {
+    background: rgba(15, 23, 42, 0.06);
+}
+
+body.theme-light .btn-primary {
+    color: #ffffff;
+}
+
+body.theme-light .btn-primary:hover {
+    color: #ffffff;
+}
+
+body.theme-light .check-row input[type="checkbox"]:checked::after {
+    border-color: #ffffff;
+}
+
+body.theme-light .chip.active {
+    color: #ffffff;
+}
+
+body.theme-light .modal-backdrop {
+    background: rgba(15, 23, 42, 0.35);
+}
+
+body.theme-light .toast {
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18);
+}
+
+body.theme-light .app-logo {
+    color: #ffffff;
+}

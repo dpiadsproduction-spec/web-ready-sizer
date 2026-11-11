@@ -1,0 +1,15 @@
+{
+  "name": "62.5% Trick",
+  "description": "Professionals' trick: 1rem = 10px (html { font-size: 62.5% })",
+  "baseline": 10,
+  "htmlFontSize": "62.5%",
+  "spacing": {
+    "1": "1rem",
+    "1.4": "1.4rem",
+    "1.8": "1.8rem",
+    "2.4": "2.4rem",
+    "3.2": "3.2rem",
+    "4.8": "4.8rem",
+    "10": "10rem"
+  }
+}

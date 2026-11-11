@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Web-Ready Sizer</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/theme-light.css" />
+    <link rel="stylesheet" href="css/rtl.css" />
+</head>
+<body class="theme-dark">
+<div class="app">
+
+    <header class="app-header">
+        <div class="app-logo" aria-hidden="true">W</div>
+        <div class="app-titles">
+            <span class="app-title" data-i18n="app.title">Web-Ready Sizer</span>
+            <span class="app-subtitle" data-i18n="app.subtitle">مقاسات الويب داخل Illustrator</span>
+        </div>
+        <button class="icon-btn" id="btn-settings" title="Settings" aria-label="Settings">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+        </button>
+        <button class="icon-btn" id="btn-theme" title="Theme" aria-label="Toggle theme">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </button>
+        <button class="icon-btn" id="btn-help" title="Help" aria-label="Help">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="9"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+        </button>
+    </header>
+
+    <nav class="tab-strip" role="tablist">
+        <button class="tab-button active" id="btn-sizer" role="tab" data-tab="sizer">
+            <span data-i18n="tab.sizer">التحجيم</span>
+        </button>
+        <button class="tab-button" id="btn-inspector" role="tab" data-tab="inspector">
+            <span data-i18n="tab.inspector">المفتش</span>
+        </button>
+        <button class="tab-button" id="btn-artboards" role="tab" data-tab="artboards">
+            <span data-i18n="tab.artboards">اللوحات</span>
+        </button>
+    </nav>
+
+    <!-- ============================================================ TAB 1 -->
+    <section class="tab-content active" id="tab-sizer" role="tabpanel">
+
+        <div class="card">
+            <div class="segmented" id="mode-switch">
+                <button data-mode="rem" class="active" data-i18n="mode.rem">rem</button>
+                <button data-mode="tailwind" data-i18n="mode.tailwind">Tailwind</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="field">
+                <div class="field-label">
+                    <span data-i18n="sizer.width">العرض</span>
+                    <span class="field-hint" id="width-hint"></span>
+                </div>
+                <div class="input-row">
+                    <div class="input-shell" id="width-shell">
+                        <input type="text" id="input-width" inputmode="decimal" placeholder="5rem" autocomplete="off" spellcheck="false" />
+                        <div class="stepper">
+                            <button type="button" data-step="width" data-dir="1" aria-label="Increase">&uplus;</button>
+                            <button type="button" data-step="width" data-dir="-1" aria-label="Decrease">&minus;</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="conversion-note" id="width-note"></div>
+            </div>
+
+            <div class="field">
+                <div class="field-label">
+                    <span data-i18n="sizer.height">الطول</span>
+                    <span class="field-hint" id="height-hint"></span>
+                </div>
+                <div class="input-row">
+                    <div class="input-shell" id="height-shell">
+                        <input type="text" id="input-height" inputmode="decimal" placeholder="1.5rem" autocomplete="off" spellcheck="false" />
+                        <div class="stepper">
+                            <button type="button" data-step="height" data-dir="1" aria-label="Increase">&uplus;</button>
+                            <button type="button" data-step="height" data-dir="-1" aria-label="Decrease">&minus;</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="conversion-note" id="height-note"></div>
+            </div>
+
+            <div class="field hidden" id="font-field">
+                <div class="field-label">
+                    <span data-i18n="sizer.font">حجم الخط</span>
+                    <span class="field-hint" id="font-hint"></span>
+                </div>
+                <div class="input-shell" id="font-shell">
+                    <input type="text" id="input-font" inputmode="decimal" placeholder="1rem" autocomplete="off" spellcheck="false" />
+                </div>
+                <div class="conversion-note" id="font-note"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title" data-i18n="sizer.options">خيارات</span>
+            </div>
+            <label class="check-row">
+                <input type="checkbox" id="opt-snap" checked />
+                <span data-i18n="sizer.snap">تقريب لأقرب قيمة Tailwind</span>
+            </label>
+            <label class="check-row">
+                <input type="checkbox" id="opt-ratio" />
+                <span data-i18n="sizer.ratio">الحفاظ على النسبة</span>
+            </label>
+            <label class="check-row">
+                <input type="checkbox" id="opt-all" />
+                <span data-i18n="sizer.all">تطبيق على كل المحدد</span>
+            </label>
+            <label class="check-row">
+                <input type="checkbox" id="opt-anchor" checked />
+                <span data-i18n="sizer.anchor">تثبيت الزاوية العلوية اليسرى</span>
+            </label>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn btn-primary" id="btn-apply-sizer" data-i18n="sizer.apply">تطبيق</button>
+            <button class="btn btn-ghost" id="btn-reset-sizer" data-i18n="sizer.reset">إعادة ضبط</button>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title" data-i18n="sizer.quickPicks">اختيار سريع</span>
+                <span class="card-subtitle" id="quick-picks-caption">width</span>
+            </div>
+            <div class="chip-grid" id="quick-picks"></div>
+        </div>
+
+        <div class="empty-state" id="sizer-empty">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 11V6a3 3 0 0 1 6 0v5"></path>
+                <path d="M6 11h12l1 9a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"></path>
+            </svg>
+            <div class="empty-state-title" data-i18n="sizer.empty">لا يوجد عنصر محدد</div>
+            <div class="empty-state-hint" data-i18n="sizer.emptyHint">حدد عنصراً في Illustrator للبدء</div>
+        </div>
+    </section>
+
+    <!-- ============================================================ TAB 2 -->
+    <section class="tab-content" id="tab-inspector" role="tabpanel">
+        <div id="inspector-body" class="hidden">
+
+            <div class="card">
+                <div class="element-header">
+                    <div class="element-icon" id="inspector-type-icon">PI</div>
+                    <div class="element-meta">
+                        <div class="element-name" id="inspector-name">-</div>
+                        <div class="element-path" id="inspector-path">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title" data-i18n="inspector.dimensions">الأبعاد</span>
+                </div>
+                <div class="prop-row">
+                    <span class="prop-label" data-i18n="sizer.width">العرض</span>
+                    <span class="prop-value" id="inspector-width">-</span>
+                    <span class="prop-class" id="inspector-width-class">-</span>
+                    <button class="copy-btn" data-copy-target="inspector-width-class">copy</button>
+                </div>
+                <div class="prop-row">
+                    <span class="prop-label" data-i18n="sizer.height">الطول</span>
+                    <span class="prop-value" id="inspector-height">-</span>
+                    <span class="prop-class" id="inspector-height-class">-</span>
+                    <button class="copy-btn" data-copy-target="inspector-height-class">copy</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title" data-i18n="inspector.position">الموضع</span>
+                </div>
+                <div class="prop-row">
+                    <span class="prop-label">X</span>
+                    <span class="prop-value" id="inspector-x">-</span>
+                </div>
+                <div class="prop-row">
+                    <span class="prop-label">Y</span>
+                    <span class="prop-value" id="inspector-y">-</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title" data-i18n="inspector.colors">الألوان</span>
+                </div>
+                <div class="prop-row">
+                    <span class="prop-label" data-i18n="inspector.fill">التعبئة</span>
+                    <span class="swatch" id="inspector-fill-swatch"></span>
+                    <span class="prop-value" id="inspector-fill-hex">-</span>
+                    <span class="prop-class" id="inspector-fill-class">-</span>
+                    <button class="copy-btn" data-copy-target="inspector-fill-class">copy</button>
+                </div>
+                <div class="prop-row">
+                    <span class="confidence" id="inspector-fill-confidence"></span>
+                </div>
+                <div class="prop-row">
+                    <span class="prop-label" data-i18n="inspector.stroke">الحدود</span>
+                    <span class="swatch" id="inspector-stroke-swatch"></span>
+                    <span class="prop-value" id="inspector-stroke-hex">-</span>
+                    <span class="prop-class" id="inspector-stroke-class">-</span>
+                    <button class="copy-btn" data-copy-target="inspector-stroke-class">copy</button>
+                </div>
+                <div class="prop-row">
+                    <span class="confidence" id="inspector-stroke-confidence"></span>
+                </div>
+            </div>
+
+            <div class="card hidden" id="inspector-typography-card">
+                <div class="card-header">
+                    <span class="card-title" data-i18n="inspector.typography">الطباعة</span>
+                </div>
+                <div class="prop-row">
+                    <span class="prop-label" data-i18n="inspector.font">الخط</span>
+                    <span class="prop-value" id="inspector-font">-</span>
+                </div>
+                <div class="prop-row">
+                    <span class="prop-label" data-i18n="inspector.size">الحجم</span>
+                    <span class="prop-value" id="inspector-font-size">-</span>
+                    <span class="prop-class" id="inspector-font-class">-</span>
+                    <button class="copy-btn" data-copy-target="inspector-font-class">copy</button>
+                </div>
+                <div class="prop-row">
+                    <span class="prop-label" data-i18n="inspector.weight">الوزن</span>
+                    <span class="prop-class" id="inspector-weight-class">-</span>
+                    <button class="copy-btn" data-copy-target="inspector-weight-class">copy</button>
+                </div>
+                <div class="prop-row">
+                    <span class="prop-label" data-i18n="inspector.case">حالة الأحرف</span>
+                    <span class="prop-class" id="inspector-case-class">-</span>
+                </div>
+                <div class="prop-row">
+                    <span class="prop-label" data-i18n="inspector.tracking">تباعد الأحرف</span>
+                    <span class="prop-value" id="inspector-tracking">-</span>
+                    <span class="prop-class" id="inspector-tracking-class">-</span>
+                </div>
+                <div class="prop-row">
+                    <span class="prop-label" data-i18n="inspector.leading">ارتفاع السطر</span>
+                    <span class="prop-value" id="inspector-leading">-</span>
+                    <span class="prop-class" id="inspector-leading-class">-</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title" data-i18n="inspector.effects">التأثيرات</span>
+                </div>
+                <div class="prop-row">
+                    <span class="prop-label" data-i18n="inspector.strokeWidth">سماكة الحدود</span>
+                    <span class="prop-value" id="inspector-stroke-width">-</span>
+                    <span class="prop-class" id="inspector-stroke-width-class">-</span>
+                </div>
+                <div class="prop-row">
+                    <span class="prop-label" data-i18n="inspector.radius">استدارة الحواف</span>
+                    <span class="prop-value" id="inspector-radius">-</span>
+                    <span class="prop-class" id="inspector-radius-class">-</span>
+                </div>
+                <div class="prop-row">
+                    <span class="prop-label" data-i18n="inspector.opacity">الشفافية</span>
+                    <span class="prop-value" id="inspector-opacity">-</span>
+                    <span class="prop-class" id="inspector-opacity-class">-</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title" data-i18n="inspector.output">المخرجات المولدة</span>
+                </div>
+                <div class="output-tabs" id="output-tabs">
+                    <button data-format="tailwind" class="active" data-i18n="format.tailwind">Tailwind</button>
+                    <button data-format="html" data-i18n="format.html">HTML</button>
+                    <button data-format="css" data-i18n="format.css">CSS</button>
+                    <button data-format="all" data-i18n="format.all">الكل</button>
+                </div>
+                <pre class="code-block" id="output-code"></pre>
+                <div class="btn-row">
+                    <button class="btn btn-primary" id="btn-copy-output" data-i18n="inspector.copyAll">نسخ الكل</button>
+                    <button class="btn" id="btn-save-output" data-i18n="inspector.save">حفظ ملف</button>
+                </div>
+                <button class="btn btn-block" id="btn-open-export" data-i18n="export.title">تصدير التحديد</button>
+            </div>
+        </div>
+
+        <div class="empty-state" id="inspector-empty">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <div class="empty-state-title" data-i18n="inspector.empty">حدد عنصراً لعرض خصائصه</div>
+        </div>
+    </section>
+
+    <!-- ============================================================ TAB 3 -->
+    <section class="tab-content" id="tab-artboards" role="tabpanel">
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title" data-i18n="artboard.title">نقاط توقف Tailwind</span>
+            </div>
+            <div id="breakpoint-list"></div>
+            <button class="btn btn-primary btn-block" id="btn-create-all" data-i18n="artboard.createAll">إنشاء كل نقاط التوقف</button>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title" data-i18n="sizer.options">خيارات</span>
+            </div>
+            <div class="inline-form">
+                <div class="field">
+                    <span class="field-label" data-i18n="artboard.height">الارتفاع الافتراضي</span>
+                    <div class="input-shell">
+                        <input type="number" id="artboard-height" value="900" min="100" max="20000" />
+                        <span class="input-suffix">px</span>
+                    </div>
+                </div>
+                <div class="field">
+                    <span class="field-label" data-i18n="artboard.spacing">المسافة بين اللوحات</span>
+                    <div class="input-shell">
+                        <input type="number" id="artboard-spacing" value="80" min="0" max="2000" />
+                        <span class="input-suffix">px</span>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <span class="field-label" data-i18n="artboard.layout">الترتيب</span>
+                <div class="segmented" id="layout-switch">
+                    <button data-layout="horizontal" class="active" data-i18n="artboard.layout.horizontal">أفقي</button>
+                    <button data-layout="vertical" data-i18n="artboard.layout.vertical">عمودي</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title" data-i18n="artboard.active">اللوحة النشطة</span>
+            </div>
+            <div class="prop-row">
+                <span class="prop-label" data-i18n="artboard.closest">أقرب نقطة توقف</span>
+                <span class="prop-class" id="closest-breakpoint">-</span>
+            </div>
+            <div class="btn-row">
+                <button class="btn" id="btn-resize-current" data-i18n="artboard.resize">تغيير الحجم</button>
+                <button class="btn" id="btn-refresh-artboards" data-i18n="common.apply">تطبيق</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title" data-i18n="artboard.existing">لوحات موجودة</span>
+            </div>
+            <div id="artboard-list"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title" data-i18n="artboard.custom">نقاط توقف مخصصة</span>
+                <button class="btn btn-sm" id="btn-add-custom" data-i18n="artboard.addCustom">إضافة نقطة مخصصة</button>
+            </div>
+            <div id="custom-breakpoint-list"></div>
+        </div>
+    </section>
+
+    <footer class="status-bar">
+        <span class="status-dot" id="status-dot"></span>
+        <span class="status-text" id="status-text" data-i18n="status.none">لا يوجد تحديد</span>
+        <span class="status-meta" id="status-meta"></span>
+    </footer>
+</div>
+
+<!-- ================================================================ MODALS -->
+
+<div class="modal-backdrop" id="modal-settings">
+    <div class="modal" role="dialog" aria-modal="true">
+        <div class="modal-header">
+            <span class="modal-title" data-i18n="settings.title">الإعدادات</span>
+            <button class="icon-btn" data-close-modal="modal-settings" aria-label="Close">&#x2715;</button>
+        </div>
+        <div class="modal-body">
+            <div class="field">
+                <span class="field-label" data-i18n="settings.language">اللغة</span>
+                <div class="segmented" id="lang-switch">
+                    <button data-lang="ar" class="active">العربية</button>
+                    <button data-lang="en">English</button>
+                </div>
+            </div>
+            <div class="field">
+                <span class="field-label" data-i18n="settings.direction">الاتجاه</span>
+                <div class="segmented" id="dir-switch">
+                    <button data-dir="rtl" class="active">RTL</button>
+                    <button data-dir="ltr">LTR</button>
+                </div>
+            </div>
+            <div class="field">
+                <span class="field-label" data-i18n="settings.theme">السمة</span>
+                <div class="segmented" id="theme-switch">
+                    <button data-theme="dark" class="active">Dark</button>
+                    <button data-theme="light">Light</button>
+                </div>
+            </div>
+            <div class="field">
+                <span class="field-label" data-i18n="settings.density">كثافة الواجهة</span>
+                <div class="segmented" id="density-switch">
+                    <button data-density="comfortable" class="active">Comfortable</button>
+                    <button data-density="compact">Compact</button>
+                </div>
+            </div>
+            <div class="field">
+                <span class="field-label" data-i18n="settings.baseline">حجم الخط الأساسي (px لكل 1rem)</span>
+                <div class="segmented" id="baseline-switch">
+                    <button data-baseline="16" class="active">16px</button>
+                    <button data-baseline="10">10px (62.5%)</button>
+                </div>
+                <div class="input-shell">
+                    <input type="number" id="baseline-custom" min="1" max="64" placeholder="16" />
+                    <span class="input-suffix">px</span>
+                </div>
+            </div>
+            <div class="field">
+                <span class="field-label" data-i18n="settings.poll">معدل التحديث (ms)</span>
+                <div class="input-shell">
+                    <input type="number" id="poll-interval" min="200" max="5000" step="100" value="700" />
+                    <span class="input-suffix">ms</span>
+                </div>
+            </div>
+            <hr class="divider" />
+            <div class="field">
+                <span class="field-label" data-i18n="settings.presets">Design Tokens</span>
+                <div class="preset-active-row">
+                    <span class="preset-active-name" id="settings-active-preset">Tailwind Default</span>
+                    <button class="btn btn-ghost" id="btn-open-presets" data-i18n="preset.title">Design Tokens</button>
+                </div>
+            </div>
+            <hr class="divider" />
+            <div class="btn-row">
+                <button class="btn" id="btn-export-settings" data-i18n="settings.exportSettings">تصدير الإعدادات</button>
+                <button class="btn" id="btn-import-settings" data-i18n="settings.importSettings">استيراد الإعدادات</button>
+            </div>
+            <button class="btn btn-block" id="btn-reset-all" data-i18n="settings.resetAll">إعادة ضبط كل شيء</button>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-close-modal="modal-settings" data-i18n="common.close">إغلاق</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-backdrop" id="modal-export">
+    <div class="modal" role="dialog" aria-modal="true">
+        <div class="modal-header">
+            <span class="modal-title" data-i18n="export.title">تصدير التحديد</span>
+            <button class="icon-btn" data-close-modal="modal-export" aria-label="Close">&#x2715;</button>
+        </div>
+        <div class="modal-body">
+            <div class="field">
+                <span class="field-label" data-i18n="export.format">التنسيق</span>
+                <select class="btn btn-block" id="export-format">
+                    <option value="tailwind-html">Tailwind HTML</option>
+                    <option value="css">CSS</option>
+                    <option value="tailwind-classes">Tailwind classes</option>
+                    <option value="tailwind-config">Tailwind config</option>
+                    <option value="design-tokens">Design Tokens JSON</option>
+                </select>
+            </div>
+            <div class="field">
+                <span class="field-label" data-i18n="export.scope">النطاق</span>
+                <select class="btn btn-block" id="export-scope">
+                    <option value="selected" data-i18n="export.scope.selected">العناصر المحددة</option>
+                    <option value="artboard" data-i18n="export.scope.artboard">اللوحة النشطة</option>
+                    <option value="document" data-i18n="export.scope.document">المستند كاملاً</option>
+                </select>
+            </div>
+            <label class="check-row">
+                <input type="checkbox" id="export-use-rem" />
+                <span data-i18n="export.useRem">استخدام rem بدل px</span>
+            </label>
+            <label class="check-row">
+                <input type="checkbox" id="export-rtl" checked />
+                <span data-i18n="export.rtl">إضافة dir=rtl</span>
+            </label>
+            <label class="check-row">
+                <input type="checkbox" id="export-minify" />
+                <span data-i18n="export.minify">ضغط المخرجات</span>
+            </label>
+            <div class="field">
+                <span class="field-label" data-i18n="export.preview">معاينة</span>
+                <pre class="code-block" id="export-preview"></pre>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-close-modal="modal-export" data-i18n="common.cancel">إلغاء</button>
+            <button class="btn" id="btn-export-copy" data-i18n="export.copy">نسخ</button>
+            <button class="btn btn-primary" id="btn-export-save" data-i18n="export.save">حفظ</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-backdrop" id="modal-help">
+    <div class="modal" role="dialog" aria-modal="true">
+        <div class="modal-header">
+            <span class="modal-title" data-i18n="help.title">مساعدة سريعة</span>
+            <button class="icon-btn" data-close-modal="modal-help" aria-label="Close">&#x2715;</button>
+        </div>
+        <div class="modal-body">
+            <p style="margin:0;line-height:1.7;font-size:var(--fs-base)" id="help-body" data-i18n="help.body"></p>
+            <div class="prop-row">
+                <span class="prop-label" data-i18n="app.version">الإصدار</span>
+                <span class="prop-value">1.0.0</span>
+            </div>
+            <div class="prop-row">
+                <span class="prop-label" data-i18n="status.document">المستند</span>
+                <span class="prop-value" id="help-document">-</span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-close-modal="modal-help" data-i18n="common.close">إغلاق</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-backdrop" id="modal-custom-breakpoint">
+    <div class="modal" role="dialog" aria-modal="true">
+        <div class="modal-header">
+            <span class="modal-title" data-i18n="artboard.addCustom">إضافة نقطة مخصصة</span>
+            <button class="icon-btn" data-close-modal="modal-custom-breakpoint" aria-label="Close">&#x2715;</button>
+        </div>
+        <div class="modal-body">
+            <div class="field">
+                <span class="field-label" data-i18n="artboard.customName">الاسم</span>
+                <div class="input-shell">
+                    <input type="text" id="custom-bp-name" placeholder="3xl" />
+                </div>
+            </div>
+            <div class="field">
+                <span class="field-label" data-i18n="artboard.customWidth">العرض</span>
+                <div class="input-shell">
+                    <input type="number" id="custom-bp-width" placeholder="1920" min="100" max="20000" />
+                    <span class="input-suffix">px</span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-close-modal="modal-custom-breakpoint" data-i18n="common.cancel">إلغاء</button>
+            <button class="btn btn-primary" id="btn-save-custom-bp" data-i18n="common.add">إضافة</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-backdrop" id="modal-presets">
+    <div class="modal modal-wide" role="dialog" aria-modal="true">
+        <div class="modal-header">
+            <span class="modal-title" data-i18n="preset.title">Design Tokens</span>
+            <button class="icon-btn" data-close-modal="modal-presets" aria-label="Close">&#x2715;</button>
+        </div>
+        <div class="modal-body">
+            <div class="field">
+                <span class="field-label" data-i18n="preset.active">السلسلة النشطة</span>
+                <div class="preset-active-row">
+                    <span class="preset-active-name" id="preset-active-name">Tailwind Default</span>
+                    <span class="badge" id="preset-active-badge" data-i18n="preset.activeBadge">نشطة</span>
+                </div>
+            </div>
+            <div class="btn-row">
+                <button class="btn" id="btn-preset-new" data-i18n="preset.new">سلسلة جديدة</button>
+                <button class="btn" id="btn-preset-import" data-i18n="preset.import">استيراد</button>
+                <button class="btn" id="btn-preset-export" data-i18n="preset.export">تصدير</button>
+            </div>
+            <div class="field">
+                <span class="field-label" data-i18n="preset.preview">المعاينة</span>
+                <div class="preset-list" id="preset-list"></div>
+            </div>
+            <div class="field" id="preset-preview-field">
+                <span class="field-label" data-i18n="preset.previewSpacing">سلسلة المسافات</span>
+                <div class="preset-preview" id="preset-preview"></div>
+            </div>
+            <hr class="divider" />
+            <div class="field" id="preset-editor" hidden>
+                <span class="field-label" data-i18n="preset.new">سلسلة جديدة</span>
+                <div class="input-shell">
+                    <input type="text" id="preset-name" data-i18n-placeholder="preset.name" placeholder="اسم السلسلة" />
+                </div>
+                <div class="input-shell">
+                    <input type="text" id="preset-desc" data-i18n-placeholder="preset.description" placeholder="وصف" />
+                </div>
+                <span class="field-hint" data-i18n="preset.spacingHelp">قيمة لكل سطر بصيغة token=value</span>
+                <textarea id="preset-spacing" class="preset-textarea" placeholder="4=1rem&#10;8=2rem&#10;12=3rem"></textarea>
+                <div class="btn-row">
+                    <button class="btn" data-close-modal="modal-presets" data-i18n="common.cancel">إلغاء</button>
+                    <button class="btn btn-primary" id="btn-preset-save" data-i18n="common.save">حفظ</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-close-modal="modal-presets" data-i18n="common.close">إغلاق</button>
+        </div>
+    </div>
+</div>
+
+<div class="toast-stack" id="toast-stack"></div>
+
+<script src="js/vendor/CSInterface.js"></script>
+<script src="js/lib/event-bus.js"></script>
+<script src="js/lib/storage.js"></script>
+<script src="js/lib/i18n.js"></script>
+<script src="js/lib/data/tailwind-data.js"></script>
+<script src="js/lib/data/tailwind-colors.js"></script>
+<script src="js/lib/data/presets-data.js"></script>
+<script src="js/lib/engine/conversion-engine.js"></script>
+<script src="js/lib/engine/snap-engine.js"></script>
+<script src="js/lib/engine/color-matcher.js"></script>
+<script src="js/lib/engine/css-generator.js"></script>
+<script src="js/lib/engine/preset-engine.js"></script>
+<script src="js/lib/host-bridge.js"></script>
+<script src="js/ui/tab-sizer.js"></script>
+<script src="js/ui/tab-inspector.js"></script>
+<script src="js/ui/tab-artboard.js"></script>
+<script src="js/ui/modals.js"></script>
+<script src="js/ui/presets.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

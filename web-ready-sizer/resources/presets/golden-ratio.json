@@ -1,0 +1,17 @@
+{
+  "name": "Golden Ratio Scale",
+  "description": "Modular scale built on φ ≈ 1.618",
+  "baseline": 16,
+  "spacing": {
+    "phi-1": "1.618rem",
+    "phi-2": "2.618rem",
+    "phi-3": "4.236rem",
+    "phi-4": "6.854rem",
+    "phi-5": "11.09rem"
+  },
+  "fontSize": {
+    "phi-sm": "1.618rem",
+    "phi-md": "2.618rem",
+    "phi-lg": "4.236rem"
+  }
+}

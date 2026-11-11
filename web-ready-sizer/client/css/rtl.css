@@ -1,0 +1,39 @@
+/* RTL refinements.
+   Logical properties handle most of the mirroring automatically, this file
+   only fixes the few places where direction still matters. */
+
+html[dir="rtl"] .app-logo {
+    transform: scaleX(-1);
+}
+
+html[dir="rtl"] .status-meta {
+    margin-inline-start: auto;
+    margin-inline-end: 0;
+}
+
+html[dir="rtl"] .mono,
+html[dir="rtl"] .input-shell input,
+html[dir="rtl"] .input-shell select,
+html[dir="rtl"] .code-block,
+html[dir="rtl"] .field-hint,
+html[dir="rtl"] .conversion-note,
+html[dir="rtl"] .prop-value,
+html[dir="rtl"] .chip,
+html[dir="rtl"] .breakpoint-size,
+html[dir="rtl"] .artboard-size,
+html[dir="rtl"] .element-path {
+    direction: ltr;
+    text-align: left;
+}
+
+html[dir="rtl"] .element-name,
+html[dir="rtl"] .artboard-name,
+html[dir="rtl"] .card-title,
+html[dir="rtl"] .modal-title {
+    text-align: right;
+}
+
+/* Keep arrow glyphs pointing the correct way in RTL */
+html[dir="rtl"] .stepper button:first-child {
+    transform: none;
+}

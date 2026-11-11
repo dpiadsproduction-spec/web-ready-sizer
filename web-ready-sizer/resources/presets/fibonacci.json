@@ -1,0 +1,15 @@
+{
+  "name": "Fibonacci Scale",
+  "description": "1, 1, 2, 3, 5, 8, 13, 21 spacing steps",
+  "baseline": 16,
+  "spacing": {
+    "fib-1": "1rem",
+    "fib-2": "1rem",
+    "fib-3": "2rem",
+    "fib-4": "3rem",
+    "fib-5": "5rem",
+    "fib-6": "8rem",
+    "fib-13": "13rem",
+    "fib-21": "21rem"
+  }
+}
